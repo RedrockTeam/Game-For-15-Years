@@ -58,10 +58,12 @@ class IndexController extends Controller {
 	
 	
 	public function rankTop(){
-		$select = D('rank')->field('name')->order('count desc')->limit(5)->select();
+		$now = date('d');
+		$select = D('reply')->join('`wx_user` on wx_user.wx_id = reply.wx_id')->where("reply.whichDay = $now")->field('wx_user.name')->order('reply.grade desc')->limit(5)->select();
 		
 		$this->assign('select',$select);
-		$this->display();
+		$this->ajaxReturn($select);
+		//$this->display();
 	}
 	
     private function setIn($src=''){
@@ -234,8 +236,6 @@ class IndexController extends Controller {
 				);
 			}
 		}
-		
-		
 
 		$this->ajaxReturn($data);
 	}
