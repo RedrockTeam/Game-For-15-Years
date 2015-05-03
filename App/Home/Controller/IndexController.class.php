@@ -51,7 +51,7 @@ class IndexController extends Controller {
 		$this->assign('rank_url',U('home/index/rankTop'));
 		$this->assign('openId',$openId);
 		$this->assign('Js',$data);
-		//$this->display();
+		$this->display();
 	}
 	
 	
