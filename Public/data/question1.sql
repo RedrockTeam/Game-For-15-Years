@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: 2015-04-30 14:08:30
+-- Generation Time: 2015-04-29 18:24:07
 -- 服务器版本： 5.6.16
 -- PHP Version: 5.5.9
 
@@ -71,71 +71,6 @@ INSERT INTO `question1` (`qid`, `question`, `ans_A`, `ans_B`, `ans_C`, `ans_D`, 
 (26, '在红岩网校工作站中负责网站的交互设计工作,后台管理系统的部门是：', 'Web研发部', '移动开发部', '运营维护部', '管理规划部', 1),
 (27, '在红岩网校工作站中负责工作站产品的运营推广，网站专题及线上线下活动的策划和制作的部门是：', 'Web研发部', '移动开发部', '运营维护部', '视觉设计部', 3),
 (28, '在红岩网校工作站中负责工作站日常管理工作；组织工作站内部活动；协调项目进度与内容的更新的部门是：', '视觉设计部', '管理规划部', '运营维护部', '移动开发部', 2);
-
--- --------------------------------------------------------
-
---
--- 表的结构 `reply`
---
-
-CREATE TABLE IF NOT EXISTS `reply` (
-  `wx_id` varchar(50) NOT NULL,
-  `whichDay` int(2) NOT NULL,
-  `times` int(2) unsigned NOT NULL DEFAULT '0',
-  `grade` int(3) unsigned NOT NULL DEFAULT '0',
-  `askTime` int(15) NOT NULL,
-  PRIMARY KEY (`wx_id`,`whichDay`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
---
--- 转存表中的数据 `reply`
---
-
-INSERT INTO `reply` (`wx_id`, `whichDay`, `times`, `grade`, `askTime`) VALUES
-('1', 1, 5, 60, 0),
-('2', 4, 2, 30, 0),
-('ouRCyjhbyphqHJ0P_pa8wvhmEJ9A', 30, 1, 43, 1430393553);
-
--- --------------------------------------------------------
-
---
--- 表的结构 `share`
---
-
-CREATE TABLE IF NOT EXISTS `share` (
-  `wx_id` varchar(50) CHARACTER SET utf8 NOT NULL,
-  `shareDay` int(3) unsigned NOT NULL,
-  PRIMARY KEY (`wx_id`,`shareDay`)
-) ENGINE=InnoDB DEFAULT CHARSET=armscii8;
-
---
--- 转存表中的数据 `share`
---
-
-INSERT INTO `share` (`wx_id`, `shareDay`) VALUES
-('ouRCyjhbyphqHJ0P_pa8wvhmEJ9A', 30);
-
--- --------------------------------------------------------
-
---
--- 表的结构 `wx_user`
---
-
-CREATE TABLE IF NOT EXISTS `wx_user` (
-  `wx_id` varchar(50) NOT NULL,
-  `name` varchar(30) NOT NULL,
-  `img_src` varchar(255) DEFAULT NULL,
-  `joinDays` int(2) unsigned NOT NULL DEFAULT '0',
-  `sex` int(2) NOT NULL,
-  PRIMARY KEY (`wx_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
---
--- 转存表中的数据 `wx_user`
---
-
-INSERT INTO `wx_user` (`wx_id`, `name`, `img_src`, `joinDays`, `sex`) VALUES
-('ouRCyjhbyphqHJ0P_pa8wvhmEJ9A', '意大利特╭(种马)╮', 'http://wx.qlogo.cn/mmopen/ialNEPD41CRgnp4devzygqkovPYiaf5qKprY5wXnP3HQhcz5FQmSicmia7fKwchibx4Iej4sjR1a5R8BYGcn6icrvyA0ZibHyibeSxSl/0', 1, 1);
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
