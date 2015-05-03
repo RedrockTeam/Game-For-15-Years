@@ -3,7 +3,7 @@ namespace Home\Controller;
 use Think\Controller;
 class IndexController extends Controller {
 	
-	private $starDay = 1;
+	private $starDay = 4;
 	private $acess_token = 'gh_68f0a1ffc303';
 	private $wx_url = 'http://hongyan.cqupt.edu.cn/MagicLoop/index.php?s=/addon/Api/Api/';
 	
@@ -118,8 +118,8 @@ class IndexController extends Controller {
 	
 	public function checkTime(){
 		$now = date("H");
-		if($now>=23||$now<=7) {
-			$result = array( 'nowTime' => $now . "时", 'status' => 707, 'info' => '本游戏只在8点-23点开放' );
+		if($now>=22||$now<=7) {
+			$result = array( 'nowTime' => $now . "时", 'status' => 707, 'info' => '本游戏只在8点-22点开放' );
 			$this->ajaxReturn($result);
 		}
 	}
