@@ -3,7 +3,7 @@ namespace Home\Controller;
 use Think\Controller;
 class IndexController extends Controller {
 	
-	private $starDay = 30;
+	private $starDay = 1;
 	private $acess_token = 'gh_68f0a1ffc303';
 	private $wx_url = 'http://hongyan.cqupt.edu.cn/MagicLoop/index.php?s=/addon/Api/Api/';
 	
@@ -145,9 +145,9 @@ class IndexController extends Controller {
 					'status' => 444,
 			);
 			$return_table = "question1";
-			$star = (date("d")-$this->starDay)*5;//*********************************************
+			$star = ((int)date("d")-$this->starDay)*5;//*********************************************
 
-			if($db_data = (D($return_table)->field('qid,question,ans_A,ans_B,ans_C,ans_D,true_ans')->limit($star,$star+5)->select())){
+			if($db_data = (D($return_table)->field('qid,question,ans_A,ans_B,ans_C,ans_D,true_ans')->limit($star,5)->select())){
 				$data = array(
 					'data' => $db_data,
 					'status' => 200,
@@ -176,22 +176,22 @@ class IndexController extends Controller {
 			//[{"true_ans":"1","qid":"1","costTime":"3"},{"true_ans":"1","qid":"7","costTime":"3"},{"true_ans":"1","qid":"46","costTime":"3"},{"true_ans":"1","qid":"55","costTime":"3"},{"true_ans":"1","qid":"57","costTime":"3"},{"true_ans":"1","qid":"65","costTime":"3"},{"true_ans":"1","qid":"66","costTime":"3"},{"true_ans":"1","qid":"68","costTime":"3"},{"true_ans":"1","qid":"77","costTime":"3"},{"true_ans":"1","qid":"86","costTime":"3"}]
 
 		    $u['wx_id']= $openId;
-			
+
 			if(D('wx_user')->where("wx_id='$openId'")->find()){
-				
+
 			}else{
 				$this->addUser($openId);//?
 			}
-			
+
 			
 			/*跟新reply成绩,比原来高就覆盖*/
 			$add= array(
 				'wx_id' => $openId,
-				'whichDay' => date("d"),
+				'whichDay' => (int)date("d"),
 				'grade' => $grade,
 
 			);
-			$whichDay = date("d");
+			$whichDay = (int)date("d");
 
 			if($check = D('reply')->where("wx_id='$openId' and whichDay=$whichDay")->find()){
 				$this->checkShare($openId,$check['times']);
@@ -206,7 +206,7 @@ class IndexController extends Controller {
 			}else{
 				$add= array(
 					'wx_id' => $openId,
-					'whichDay' => date("d"),
+					'whichDay' => (int)date("d"),
 					'grade' => $grade,
 					'askTime'=> time(),
 					'times' => 1,
@@ -240,24 +240,45 @@ class IndexController extends Controller {
 		$this->ajaxReturn($data);
 	}
 
-	private function checkShare($openId,$time){
-		$shareDay = date("d");
-		if(D('share')->where("openid='$openId' and shareDay = $shareDay ")->find()){
+	private function checkShare($openId,$time)
+	{
+		$shareDay = (int)date("d");
+		if (
+		($tmp = D('share')->where("wx_id='$openId' and shareDay = $shareDay ")->find())
+		) {
 			$top = 2;
-		}else{
+		} else {
 			$top = 1;
 		}
 
-		$data=array(
-			'status' =>101,
-			'info' 	 =>'已到答题上限。',
+		$data = array(
+			'status' => 101,
+			'info'   => '已到答题上限。',
 		);
 
-		if($time>$top){
+		if ($time > $top) {
 			$this->ajaxReturn($data);
+		} else {
+			return ($top - $time);
 		}
 
+	}
 
+	public function checkJoin(){
+		$whichDay=(int)date('d');
+		if(
+			(I('post.key') == md5('cqupt_question'))  //密文:86b4359bdfdefb5b21d6260476087062
+			&&
+			($openId = I('post.openId'))/*微信openid*/
+		) {
+			if ($check = D('reply')->where("wx_id='$openId' and whichDay=$whichDay")->find()) {
+				$t = $this->checkShare($openId, $check['times']);
+			}else{
+				$t = $this->checkShare($openId, 0);
+			}
+
+			$this->ajaxReturn(array('status'=>200,'rest'=>$t));
+		}
 	}
 	
 	private function backUserInfo($openId){
