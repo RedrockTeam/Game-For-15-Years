@@ -88,7 +88,7 @@ game.prototype.end = function(){
 			count++;
 		}
 	});
-	score = 10*count;
+	score = 80*count/5+20-(this.time-20)*0.4;
 	$.ajax({
 		type : post,
 		url : queURL,

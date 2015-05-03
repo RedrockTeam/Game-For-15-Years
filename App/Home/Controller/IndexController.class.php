@@ -3,14 +3,13 @@ namespace Home\Controller;
 use Think\Controller;
 class IndexController extends Controller {
 	
-	private $starDay = 1;
+	private $starDay = 4;
 	private $acess_token = 'gh_68f0a1ffc303';
 	private $wx_url = 'http://hongyan.cqupt.edu.cn/MagicLoop/index.php?s=/addon/Api/Api/';
 	
 	public function index(){
 
 		$openId = I('get.id');
-		$this->checkTime();
 		$time=time();
 		$str = 'abcdefghijklnmopqrstwvuxyz1234567890ABCDEFGHIJKLNMOPQRSTWVUXYZ';
 		$string='';
