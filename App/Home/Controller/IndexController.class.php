@@ -9,7 +9,10 @@ class IndexController extends Controller {
 	
 	public function index(){
 		//$this->checkTime();
-		$openId = I('get.id');
+		//$openId = I('get.id');
+
+		$CODE = I('get.code');
+
 		$time=time();
 		$str = 'abcdefghijklnmopqrstwvuxyz1234567890ABCDEFGHIJKLNMOPQRSTWVUXYZ';
 		$string='';
@@ -19,14 +22,28 @@ class IndexController extends Controller {
 		}
 		$secret =sha1(sha1($time).md5($string)."redrock");
 		$web=$this->wx_url.'userInfo';
-		$find=array(
+		$t2=array(
+			'timestamp'=>$time,
+			'string'=>$string,
+			'secret'=>$secret,
+			'token'=>$this->acess_token,
+			'code' => $CODE,
+		);
+		$url2=$this->wx_url."webOauth";
+		$find =array(
 			'timestamp'=>$time,
 			'string'=>$string,
 			'secret'=>$secret,
 			'token'=>$this->acess_token,
 		);
-		
+
+		$oa = json_decode($this->curl_api($url2,$t2),true);//new
+		$this->newUser($oa['data']['openid'],$oa);
+		$openId = $oa['data']['openid'];
+		/**/
+
 		$back = json_decode($this->curl_api($this->wx_url."apiJsTicket",$find),true);
+
 		$ticket=$back['data'];
 		$timestamp=time();
 		
@@ -52,7 +69,8 @@ class IndexController extends Controller {
 		$this->assign('openId',$openId);
 		$this->assign('Js',$data);
 		$this->assign('GAMEURL',U('home:index/game/openId/'.$openId));
-		$this->display();
+
+		$this->display('index');
 	}
 	
 	public function game(){
