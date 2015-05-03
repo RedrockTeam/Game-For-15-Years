@@ -8,7 +8,7 @@ class IndexController extends Controller {
 	private $wx_url = 'http://hongyan.cqupt.edu.cn/MagicLoop/index.php?s=/addon/Api/Api/';
 	
 	public function index(){
-		$this->checkTime();
+		//$this->checkTime();
 		$openId = I('get.id');
 		$time=time();
 		$str = 'abcdefghijklnmopqrstwvuxyz1234567890ABCDEFGHIJKLNMOPQRSTWVUXYZ';
@@ -51,7 +51,7 @@ class IndexController extends Controller {
 		$this->assign('rank_url',U('home/index/rankTop'));
 		$this->assign('openId',$openId);
 		$this->assign('Js',$data);
-		//$this->display();
+		$this->display();
 	}
 	
 	
