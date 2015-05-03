@@ -261,6 +261,14 @@ class IndexController extends Controller {
 
 	}
 
+
+	public function prizeApi(){
+		if($openId = I('post.openId'))	{
+			$data['data']=D('gift')->where("wx_id='$openId'")->select();
+			$this->ajaxReturn($data);
+		}
+	}
+
 	public function checkJoin(){
 		$whichDay=(int)date('d');
 		if(
