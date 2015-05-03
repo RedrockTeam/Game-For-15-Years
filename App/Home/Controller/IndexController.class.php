@@ -10,7 +10,6 @@ class IndexController extends Controller {
 	public function index(){
 
 		$openId = I('get.id');
-		$this->checkTime();
 		$time=time();
 		$str = 'abcdefghijklnmopqrstwvuxyz1234567890ABCDEFGHIJKLNMOPQRSTWVUXYZ';
 		$string='';
