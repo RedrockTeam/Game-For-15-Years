@@ -58,12 +58,9 @@ class IndexController extends Controller {
 	
 	
 	public function rankTop(){
-		$now = date('d');
+		$now = (int)date('d');
 		$select = D('reply')->join('`wx_user` on wx_user.wx_id = reply.wx_id')->where("reply.whichDay = $now")->field('wx_user.name')->order('reply.grade desc')->limit(5)->select();
-		
-		$this->assign('select',$select);
-		$this->ajaxReturn($select);
-		//$this->display();
+		$this->ajaxReturn(array('data'=>$select));
 	}
 	
     private function setIn($src=''){
@@ -173,8 +170,6 @@ class IndexController extends Controller {
 			&&
 			($openId = I('post.openId'))/*微信openid*/		
 		){
-			//[{"true_ans":"1","qid":"1","costTime":"3"},{"true_ans":"1","qid":"7","costTime":"3"},{"true_ans":"1","qid":"46","costTime":"3"},{"true_ans":"1","qid":"55","costTime":"3"},{"true_ans":"1","qid":"57","costTime":"3"},{"true_ans":"1","qid":"65","costTime":"3"},{"true_ans":"1","qid":"66","costTime":"3"},{"true_ans":"1","qid":"68","costTime":"3"},{"true_ans":"1","qid":"77","costTime":"3"},{"true_ans":"1","qid":"86","costTime":"3"}]
-
 		    $u['wx_id']= $openId;
 
 			if(D('wx_user')->where("wx_id='$openId'")->find()){
@@ -194,7 +189,9 @@ class IndexController extends Controller {
 			$whichDay = (int)date("d");
 
 			if($check = D('reply')->where("wx_id='$openId' and whichDay=$whichDay")->find()){
-				$this->checkShare($openId,$check['times']);
+				if($this->checkShare($openId,$check['times'])<=0){
+					$this->ajaxReturn(array('status'=>0,'info'=>'wrong'));
+				}
 
 				$add['times'] =$check['times']+1;
 				if($check['grade']>$add['grade']){
@@ -278,6 +275,25 @@ class IndexController extends Controller {
 			}
 
 			$this->ajaxReturn(array('status'=>200,'rest'=>$t));
+		}
+	}
+
+	public function shareApi(){
+		$whichDay=(int)date('d');
+		if(
+			(I('post.key') == md5('cqupt_question'))  //密文:86b4359bdfdefb5b21d6260476087062
+			&&
+			($openId = I('post.openId'))/*微信openid*/
+		) {
+			$data['wx_id']=$openId;
+			$data['shareDay']=date('d');
+			if(D('share')->add($data)){
+				$return['status']=200;
+			}else{
+				$return['status']=0;
+			}
+
+			$this->ajaxReturn($return);
 		}
 	}
 	
