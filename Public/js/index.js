@@ -11,12 +11,13 @@ game.prototype.begin = function(){
 		data : 'openId='+openid+'&key=86b4359bdfdefb5b21d6260476087062',
 		success : function(data){
 			rest = data.rest;
+			that.draw('begin');
 		},
 		error : function(){
 			alert('连接服务器失败！');
 		}
 	});
-	this.draw('begin');
+
 }
 
 game.prototype.start = function(){
@@ -27,36 +28,38 @@ game.prototype.start = function(){
 		data : 'type=getContent&key=86b4359bdfdefb5b21d6260476087062',
 		success : function(data){
 			that.question = data.data;
+			that.queNum = 1;
+			if(rest>0){
+				rest--;
+				that.que();
+				that.count();
+			}else{
+				that.alert('nomore');
+			}
 		},
 		error : function(){
 			alert('连接服务器失败！');
 		}
 	});
 
-  this.queNum = 1;
+
   // this.question = [{qid:1,question:'sf',ansA:'sdf',ansB:'sf',ansC:'sdf',ansD:'dsf',true_ans:'sdf'}
   // ,{qid:1,que:'sf',ansA:'asdf',ansB:'sdf',ansC:'sfd',ansD:'sdf',tureAns:'sdf'}
   // ,{qid:1,que:'sf',ansA:'asdf',ansB:'sdf',ansC:'sfd',ansD:'sdf',tureAns:'sdf'}
   // ,{qid:1,que:'sf',ansA:'asdf',ansB:'sdf',ansC:'sfd',ansD:'sdf',tureAns:'sdf'}
   // ,{qid:1,que:'sf',ansA:'asdf',ansB:'sdf',ansC:'sfd',ansD:'sdf',tureAns:'sdf'}];
-	if(rest>0){
-		rest--;
-		this.que();
-		this.count();
-	}else{
-		this.alert('nomore');
-	}
+
 }
 
 game.prototype.que = function(){
 	var content = '';
 	var that = this;
-	content += '<div class="header">TIME：您已经花费<span class="green">'+this.time+'</span>秒</div>';
-	content += '<p class="que"><i>'+that.queNum+'</i>'+that.question[this.queNum-1].question+'</p>';
-	content += '<div class="ans ans_off" data="1">A：'+that.question[this.queNum-1].ans_A+'</div>';
-	content += '<div class="ans ans_off" data="2">B：'+that.question[this.queNum-1].ans_B+'</div>';
-	content += '<div class="ans ans_off" data="3">C：'+that.question[this.queNum-1].ans_C+'</div>';
-	content += '<div class="ans ans_off" data="4">D：'+that.question[this.queNum-1].ans_D+'</div>';
+	content += '<div class="header">TIME：您已经花费<span class="green">'+that.time+'</span>秒</div>';
+	content += '<p class="que"><i>'+that.queNum+'</i>'+that.question[that.queNum-1].question+'</p>';
+	content += '<div class="ans ans_off" data="1">A：'+that.question[that.queNum-1].ans_A+'</div>';
+	content += '<div class="ans ans_off" data="2">B：'+that.question[that.queNum-1].ans_B+'</div>';
+	content += '<div class="ans ans_off" data="3">C：'+that.question[that.queNum-1].ans_C+'</div>';
+	content += '<div class="ans ans_off" data="4">D：'+that.question[that.queNum-1].ans_D+'</div>';
 	$('.bc').html(content);
 	$('.ans_off').on('touchstart',function(){
 		$(this).removeClass('ans_off');
