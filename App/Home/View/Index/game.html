@@ -15,12 +15,12 @@
 <script type="text/javascript">
 	var openid = "{$openId}";
 	var rest = 0;
-	var beginURL = '<php>echo U("Home:index/checkJoin");</php>';
-	var queURL = '<php>echo U("Home:index/questionApi");</php>';
-	var ansURL = '<php>echo U("Home:index/answerApi");</php>';
-	var shareURL = '<php>echo U("Home:index/shareApi");</php>';
-	var rankURL = '<php>echo U("Home:index/rankTop");</php>';
-	var prizeURL = '<php>echo U("Home:index/prizeApi");</php>';
+	var beginURL = '<php>echo U("Home/Index/checkJoin");</php>';
+	var queURL = '<php>echo U("Home/Index/questionApi");</php>';
+	var ansURL = '<php>echo U("Home/Index/answerApi");</php>';
+	var shareURL = '<php>echo U("Home/Index/shareApi");</php>';
+	var rankURL = '<php>echo U("Home/Index/rankTop");</php>';
+	var prizeURL = '<php>echo U("Home/Index/prizeApi");</php>';
 	wx.config({
 	    debug: false, // 开启调试模式,调用的所有api的返回值会在客户端alert出来，若要查看传入的参数，可以在pc端打开，参数信息会通过log打出，仅在pc端时才会打印。
 	    appId: 'wx81a4a4b77ec98ff4', // 必填，公众号的唯一标识
