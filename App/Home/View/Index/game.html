@@ -50,7 +50,7 @@
 		    success: function () {
 				alert('分享成功!');
 		    	$.ajax({
-						type : post,
+						type : 'post',
 						url : shareURL,
 						data : 'type=getGrade&key=86b4359bdfdefb5b21d6260476087062&openId='+openid+'',
 						success : function(data){
