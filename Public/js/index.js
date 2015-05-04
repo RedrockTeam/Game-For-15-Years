@@ -96,7 +96,7 @@ game.prototype.end = function(){
 	score = 80*count/5+20-(this.time-20)*0.4;
 	$.ajax({
 		type : 'post',
-		url : queURL,
+		url : ansURL,
 		data : 'type=getGrade&key=86b4359bdfdefb5b21d6260476087062&openId='+openid+'&grade='+score,
 		success : function(data){
 			rank = data.rank;
