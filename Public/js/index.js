@@ -6,7 +6,7 @@ var game = function(){
 game.prototype.begin = function(){
 	var that = this;
 	$.ajax({
-		type : post,
+		type : 'post',
 		url : beginURL,
 		data : 'openId='+openid+'&key=86b4359bdfdefb5b21d6260476087062',
 		success : function(data){
@@ -21,7 +21,7 @@ game.prototype.begin = function(){
 game.prototype.start = function(){
 	var that = this;
 	$.ajax({
-		type : post,
+		type : 'post',
 		url : queURL,
 		data : 'type=getContent&key=86b4359bdfdefb5b21d6260476087062',
 		success : function(data){
@@ -91,7 +91,7 @@ game.prototype.end = function(){
 	});
 	score = 80*count/5+20-(this.time-20)*0.4;
 	$.ajax({
-		type : post,
+		type : 'post',
 		url : queURL,
 		data : 'type=getGrade&key=86b4359bdfdefb5b21d6260476087062&openId='+openid+'&grade='+score,
 		success : function(data){
@@ -228,7 +228,7 @@ game.prototype.prize = function(){
 	}else{
 		var array = [];
 		$.ajax({
-			type : post,
+			type : 'post',
 			url : prizeURL,
 			data : 'openId='+openid,
 			success : function(data){
@@ -247,7 +247,7 @@ game.prototype.prize = function(){
 game.prototype.rank = function(){
 	var array = [];
 	$.ajax({
-			type : post,
+			type : 'post',
 			url : rankURL,
 			data : '',
 			success : function(data){
