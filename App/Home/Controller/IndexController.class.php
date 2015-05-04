@@ -38,7 +38,7 @@ class IndexController extends Controller {
 		);
 
 		$oa = json_decode($this->curl_api($url2,$t2),true);//new
-		$this->newUser($oa['data']['openid'],$oa);
+		//$this->newUser($oa['data']['openid'],$oa);
 		$openId = $oa['data']['openid'];
 		/**/
 
@@ -68,14 +68,18 @@ class IndexController extends Controller {
 		$this->assign('rank_url',U('home/index/rankTop'));
 		$this->assign('openId',$openId);
 		$this->assign('Js',$data);
-		$this->assign('GAMEURL',U('home:index/game/openId/'.$openId));
+		$this->assign('GAMEURL',U('home:index/game/openId/'.$openId.'/js/'.$data));
 
 		$this->display('index');
 	}
 	
 	public function game(){
 		$openId = I('get.openId');
+		$data = I('get.js');
+
 		$this->assign('openId',$openId);
+		$this->assign('Js',$data);
+
 		$this->display();
 
 	}
