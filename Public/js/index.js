@@ -251,19 +251,21 @@ game.prototype.prize = function(){
 
 game.prototype.rank = function(){
 	var array = [];
+	var that = this;
 	$.ajax({
 			type : 'post',
 			url : rankURL,
 			data : '',
 			success : function(data){
 				array = data.data;
+				that.draw("rank",array);
 			},
 			error : function(){
 				alert('连接服务器失败！');
 			}
 		});
 	//var data = [{name:'2012-2-2'},{name:'aaa'}];
-	this.draw("rank",array);
+
 }
 
 var Game = new game();
