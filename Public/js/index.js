@@ -97,13 +97,14 @@ game.prototype.end = function(){
 		data : 'type=getGrade&key=86b4359bdfdefb5b21d6260476087062&openId='+openid+'&grade='+score,
 		success : function(data){
 			rank = data.rank;
+			var data = {time:that.time,score:score,rank:rank};
+			that.draw('end',data);
 		},
 		error : function(){
 			alert('连接服务器失败！');
 		}
 	});
-	var data = {time:this.time,score:score,rank:rank};
-	this.draw('end',data);
+
 }
 
 game.prototype.share = function(){
@@ -252,7 +253,7 @@ game.prototype.rank = function(){
 			url : rankURL,
 			data : '',
 			success : function(data){
-				array = data;
+				array = data.data;
 			},
 			error : function(){
 				alert('连接服务器失败！');
