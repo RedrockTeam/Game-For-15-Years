@@ -38,7 +38,6 @@ class IndexController extends Controller {
 		);
 
 		$oa = json_decode($this->curl_api($url2,$t2),true);//new
-		$this->newUser($oa['data']['openid'],$oa);
 		$openId = $oa['data']['openid'];
 		/**/
 
