@@ -186,7 +186,7 @@ game.prototype.draw = function(page,data){
 			content += '<tr><td>'+(index+1)+'</td><td>'+element.name;
 		});
 		content += '</tbody></table>';
-		content += '<h2 class="rank_h2">说明</h2><p class="rank_p">1.排行榜是实时更新的，并在每天早上九点题目更新时重置排行榜；<br/>2.每日排行前五名将各得到现金红包一个。</p>';
+		content += '<h2 class="rank_h2">说明</h2><p class="rank_p">1.排行榜是实时更新的，并在每天题目更新时重置排行榜；<br/>2.每日排行前五名将各得到现金红包一个。</p>';
 		content += '<div class="outer"><div class="button return"></div><div class="button prize"></div></div>';
 		$('.bc').html(content);
 		$('.bc').css({'background-image':'url(Public/img/back.png)'});
