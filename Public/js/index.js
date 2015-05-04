@@ -29,6 +29,8 @@ game.prototype.start = function(){
 		success : function(data){
 			that.question = data.data;
 			that.queNum = 1;
+			that.result = [];
+			that.time = 0;
 			if(rest>0){
 				rest--;
 				that.que();
