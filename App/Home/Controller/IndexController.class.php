@@ -10,7 +10,6 @@ class IndexController extends Controller {
 	public function index(){
 		//$this->checkTime();
 		//$openId = I('get.id');
-
 		$CODE = I('get.code');
 
 		$time=time();
@@ -30,30 +29,53 @@ class IndexController extends Controller {
 			'code' => $CODE,
 		);
 		$url2=$this->wx_url."webOauth";
+
+
+		$oa = json_decode($this->curl_api($url2,$t2),true);//new
+		//$this->newUser($oa['data']['openid'],$oa);
+		$openId = $oa['data']['openid'];
+
+
+		$this->assign('answerApi_url',U('home/index/answerApi'));
+		$this->assign('on_url',U('public/img/on.png'));
+		$this->assign('questionApi_url',U('home/index/questionApi'));
+		$this->assign('rank_url',U('home/index/rankTop'));
+//		$this->assign('openId',$openId);
+//		$this->assign('Js',$data);
+		$this->assign('GAMEURL',U('home:index/game/openId/'.$openId.'/code/'.$CODE));
+		$this->display('index');
+	}
+	
+	public function game(){
+		$openId = I('get.openId');
+		$time=time();
+		$str = 'abcdefghijklnmopqrstwvuxyz1234567890ABCDEFGHIJKLNMOPQRSTWVUXYZ';
+		$string='';
+		for($i=0;$i<16;$i++){
+			$num = mt_rand(0,61);
+			$string .= $str[$num];
+		}
+		$secret =sha1(sha1($time).md5($string)."redrock");
+		/**/
+
 		$find =array(
 			'timestamp'=>$time,
 			'string'=>$string,
 			'secret'=>$secret,
 			'token'=>$this->acess_token,
 		);
-
-		$oa = json_decode($this->curl_api($url2,$t2),true);//new
-		//$this->newUser($oa['data']['openid'],$oa);
-		$openId = $oa['data']['openid'];
-		/**/
-
 		$back = json_decode($this->curl_api($this->wx_url."apiJsTicket",$find),true);
 
 		$ticket=$back['data'];
 		$timestamp=time();
-		
+
 		$str = 'abcdefghijklnmopqrstwvuxyz1234567890ABCDEFGHIJKLNMOPQRSTWVUXYZ';
 		$nonceStr='';
 		for($i=0;$i<16;$i++){
 			$num = mt_rand(0,61);
 			$nonceStr .= $str[$num];
 		}
-		
+
 		$url ="http://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
 		$key ="jsapi_ticket=$ticket&noncestr=$nonceStr&timestamp=$timestamp&url=$url";
 		$data['ticket'] =$back['data'];
@@ -62,24 +84,15 @@ class IndexController extends Controller {
 		$data['nonceStr'] =$nonceStr;
 		$data['url'] =$url;
 
+		//
+		//$data = I('get.js');
+
+		$this->assign('openId',$openId);
+		$this->assign('Js',$data);
 		$this->assign('answerApi_url',U('home/index/answerApi'));
 		$this->assign('on_url',U('public/img/on.png'));
 		$this->assign('questionApi_url',U('home/index/questionApi'));
 		$this->assign('rank_url',U('home/index/rankTop'));
-		$this->assign('openId',$openId);
-		$this->assign('Js',$data);
-		$this->assign('GAMEURL',U('home:index/game/openId/'.$openId.'/js/'.$data));
-
-		$this->display('index');
-	}
-	
-	public function game(){
-		$openId = I('get.openId');
-		$data = I('get.js');
-
-		$this->assign('openId',$openId);
-		$this->assign('Js',$data);
-
 		$this->display();
 
 	}
