@@ -40,11 +40,11 @@
 		    	 "menuItem:copyUrl",
 		    	 "menuItem:originPage"
 		    ]
-		});
+		}),
 
 		
 		wx.onMenuShareTimeline({
-		    title: s.get(), // 分享标题
+		    title: '网校15周年', // 分享标题
 		    link: 'https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx81a4a4b77ec98ff4&redirect_uri=http%3A%2F%2Fhongyan.cqupt.edu.cn%2F%2FGame-For-15-Years%2FIndex%2Findex&response_type=code&scope=snsapi_userinfo&state=STATE#wechat_redirect', // 分享链接
 		    imgUrl: 'http://hongyan.cqupt.edu.cn/Game-For-15-Years/Public/img/logo.png', // 分享图标
 		    success: function () {
@@ -67,7 +67,7 @@
 		    cancel: function () { 
 		        // 用户取消分享后执行的回调函数
 		    }
-		});
+		})
 
 
 		// wx.onMenuShareAppMessage({
