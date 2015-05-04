@@ -1,32 +1,32 @@
-<!DOCTYPE html>
+<?php if (!defined('THINK_PATH')) exit();?><!DOCTYPE html>
 <html lang="zh-CN">
 <head>
 	<title>网校知多少</title>
 	<meta charset="utf-8"/>
 	<meta name="viewport" content="width=device-width,initial-scale=1.0, maximum-scale=1.0,maximum-scale=1.0" />
-	<link rel="stylesheet" type="text/css" href="__PUBLIC__/css/index.css">
-	<script type="text/javascript" src="__PUBLIC__/js/zepto.min.js"></script>
-	<script src="__PUBLIC__/js/weixin.js"></script>
+	<link rel="stylesheet" type="text/css" href="/Game-For-15-Years/Public/css/index.css">
+	<script type="text/javascript" src="/Game-For-15-Years/Public/js/zepto.min.js"></script>
+	<script src="/Game-For-15-Years/Public/js/weixin.js"></script>
 </head>
 <body>
 <div class="bc">
 
 </div>
 <script type="text/javascript">
-	var openid = "{$openId}";
+	var openid = "<?php echo ($openId); ?>";
 	var rest = 0;
-	var beginURL = '<php>echo U("Home/Index/checkJoin");</php>';
-	var queURL = '<php>echo U("Home/Index/questionApi");</php>';
-	var ansURL = '<php>echo U("Home/Index/answerApi");</php>';
-	var shareURL = '<php>echo U("Home/Index/shareApi");</php>';
-	var rankURL = '<php>echo U("Home/Index/rankTop");</php>';
-	var prizeURL = '<php>echo U("Home/Index/prizeApi");</php>';
+	var beginURL = '<?php echo U("Home:index/checkJoin"); ?>';
+	var queURL = '<?php echo U("Home:index/questionApi"); ?>';
+	var ansURL = '<?php echo U("Home:index/answerApi"); ?>';
+	var shareURL = '<?php echo U("Home:index/shareApi"); ?>';
+	var rankURL = '<?php echo U("Home:index/rankTop"); ?>';
+	var prizeURL = '<?php echo U("Home:index/prizeApi"); ?>';
 	wx.config({
 	    debug: false, // 开启调试模式,调用的所有api的返回值会在客户端alert出来，若要查看传入的参数，可以在pc端打开，参数信息会通过log打出，仅在pc端时才会打印。
 	    appId: 'wx81a4a4b77ec98ff4', // 必填，公众号的唯一标识
-	    timestamp: '{$Js.timestamp}', // 必填，生成签名的时间戳
-	    nonceStr: '{$Js.nonceStr}', // 必填，生成签名的随机串
-	    signature: '{$Js.signature}',// 必填，签名，见附录1
+	    timestamp: '<?php echo ($Js["timestamp"]); ?>', // 必填，生成签名的时间戳
+	    nonceStr: '<?php echo ($Js["nonceStr"]); ?>', // 必填，生成签名的随机串
+	    signature: '<?php echo ($Js["signature"]); ?>',// 必填，签名，见附录1
 	    jsApiList: [
 	    	'onMenuShareTimeline',
 	    	'onMenuShareAppMessage',
@@ -85,6 +85,6 @@
 		// });
 	});
 </script>
-<script type="text/javascript" src="__PUBLIC__/js/index.js"></script>
+<script type="text/javascript" src="/Game-For-15-Years/Public/js/index.js"></script>
 </body>
 </html>
