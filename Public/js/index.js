@@ -8,7 +8,7 @@ game.prototype.begin = function(){
 	$.ajax({
 		type : post,
 		url : beginURL,
-		data : 'openId='+openid+'&key=86b4359bdfdefb5b21d6260476087062';
+		data : 'openId='+openid+'&key=86b4359bdfdefb5b21d6260476087062',
 		success : function(data){
 			rest = data.rest;
 		},
