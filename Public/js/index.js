@@ -16,6 +16,7 @@ game.prototype.begin = function(){
 			alert('连接服务器失败！');
 		}
 	});
+	this.draw('begin');
 }
 
 game.prototype.start = function(){
@@ -26,6 +27,7 @@ game.prototype.start = function(){
 		data : 'type=getContent&key=86b4359bdfdefb5b21d6260476087062',
 		success : function(data){
 			that.question = data.data;
+			that.que();
 		},
 		error : function(){
 			alert('连接服务器失败！');
