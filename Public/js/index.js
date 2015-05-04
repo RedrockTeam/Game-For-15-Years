@@ -103,6 +103,7 @@ game.prototype.end = function(){
 		success : function(data){
 			rank = data.rank;
 			var data = {time:that.time,score:score,rank:rank};
+			document.title = '我在网校十五周年之网校知多少中得了'+score+'分，排名第'+rank+'。现在参加更有好礼相送哦~';
 			that.draw('end',data);
 		},
 		error : function(){
