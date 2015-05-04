@@ -47,14 +47,15 @@
 		    title: s.get(), // 分享标题
 		    link: 'https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx81a4a4b77ec98ff4&redirect_uri=http%3A%2F%2Fhongyan.cqupt.edu.cn%2F%2FGame-For-15-Years%2FIndex%2Findex&response_type=code&scope=snsapi_userinfo&state=STATE#wechat_redirect', // 分享链接
 		    imgUrl: 'http://hongyan.cqupt.edu.cn/Game-For-15-Years/Public/img/logo.png', // 分享图标
-		    success: function () { 
+		    success: function () {
+				alert('分享成功!');
 		    	$.ajax({
 						type : post,
 						url : shareURL,
 						data : 'type=getGrade&key=86b4359bdfdefb5b21d6260476087062&openId='+openid+'',
 						success : function(data){
 							if(data.status == 200){
-								rest = 1;
+								rest++;
 							}
 						},
 						error : function(){
