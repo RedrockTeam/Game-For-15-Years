@@ -67,7 +67,7 @@ class IndexController extends Controller {
 		$this->assign('rank_url',U('home/index/rankTop'));
 		$this->assign('openId',$openId);
 		$this->assign('Js',$data);
-		$this->assign('GAMEURL',U('home:index/game/openId/'.$openId.'/js/'.$data));
+		$this->assign('GAMEURL',U('home/index/game/openId/'.$openId.'/js/'.$data));
 
 		$this->display('index');
 	}
