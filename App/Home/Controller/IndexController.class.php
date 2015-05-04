@@ -36,13 +36,13 @@ class IndexController extends Controller {
 		$openId = $oa['data']['openid'];
 
 
-		$this->assign('answerApi_url',U('home/index/answerApi'));
-		$this->assign('on_url',U('public/img/on.png'));
-		$this->assign('questionApi_url',U('home/index/questionApi'));
-		$this->assign('rank_url',U('home/index/rankTop'));
+		$this->assign('answerApi_url',U('Hmoe/Index/answerApi'));
+		$this->assign('on_url',U('Public/img/on.png'));
+		$this->assign('questionApi_url',U('Home/Index/questionApi'));
+		$this->assign('rank_url',U('Home/Index/rankTop'));
 //		$this->assign('openId',$openId);
 //		$this->assign('Js',$data);
-		$this->assign('GAMEURL',U('home:index/game/openId/'.$openId.'/code/'.$CODE));
+		$this->assign('GAMEURL',U('Home:Index/game/openId/'.$openId.'/code/'.$CODE));
 		$this->display('index');
 	}
 	
@@ -89,10 +89,10 @@ class IndexController extends Controller {
 
 		$this->assign('openId',$openId);
 		$this->assign('Js',$data);
-		$this->assign('answerApi_url',U('home/index/answerApi'));
+		$this->assign('answerApi_url',U('Home/Index/answerApi'));
 		$this->assign('on_url',U('public/img/on.png'));
-		$this->assign('questionApi_url',U('home/index/questionApi'));
-		$this->assign('rank_url',U('home/index/rankTop'));
+		$this->assign('questionApi_url',U('Home/Index/questionApi'));
+		$this->assign('rank_url',U('Home/Index/rankTop'));
 		$this->display();
 
 	}
