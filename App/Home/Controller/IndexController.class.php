@@ -8,7 +8,7 @@ class IndexController extends Controller {
 	private $wx_url = 'http://hongyan.cqupt.edu.cn/MagicLoop/index.php?s=/addon/Api/Api/';
 	
 	public function index(){
-		//$this->checkTime();
+		//
 		//$openId = I('get.id');
 		$CODE = I('get.code');
 
@@ -166,7 +166,7 @@ class IndexController extends Controller {
 
 	
 	public function	questionApi(){
-		$this->checkTime();
+		
 		$data = array(
 					'data'=>"您访问的页面不存在",
 					'status' => 404
@@ -195,7 +195,7 @@ class IndexController extends Controller {
 	}
 	
 	public function	answerApi(){
-		$this->checkTime();
+		
 		$data = array(
 					'data'=>"您访问的页面不存在",
 					'status' => 404
