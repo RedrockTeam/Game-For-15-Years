@@ -103,7 +103,33 @@ game.prototype.end = function(){
 		success : function(data){
 			rank = data.rank;
 			var data = {time:that.time,score:score,rank:rank};
-			s.set('我在网校十五周年之网校知多少中得了'+score+'分，排名第'+rank+'。现在参加更有好礼相送哦~');
+			wx.ready(function(){
+				wx.onMenuShareTimeline({
+				    title: '我在网校十五周年之网校知多少中得了'+score+'分，排名第'+rank+'。现在参加更有好礼相送哦~', // 分享标题
+				    link: 'https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx81a4a4b77ec98ff4&redirect_uri=http%3A%2F%2Fhongyan.cqupt.edu.cn%2F%2FGame-For-15-Years&response_type=code&scope=snsapi_userinfo&state=STATE#wechat_redirect', // 分享链接
+				    imgUrl: 'http://hongyan.cqupt.edu.cn/Game-For-15-Years/Public/img/logo.png', // 分享图标
+				    success: function () {
+						alert('分享成功!');
+				    	$.ajax({
+								type : 'post',
+								url : shareURL,
+								data : 'type=getGrade&key=86b4359bdfdefb5b21d6260476087062&openId='+openid+'',
+								success : function(data){
+									if(data.status == 200){
+										rest++;
+									}
+								},
+								error : function(){
+									alert('连接服务器失败！');
+								}
+							});
+				        // 用户确认分享后执行的回调函数
+				    },
+				    cancel: function () { 
+				        // 用户取消分享后执行的回调函数
+				    }
+				})
+			});
 			that.draw('end',data);
 		},
 		error : function(){
