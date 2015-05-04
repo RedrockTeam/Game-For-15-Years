@@ -1,4 +1,3 @@
-./App/Runtime/
-./App/Home/Conf/
+App/Runtime/
+App/Home/Conf/
 .idea/
-
