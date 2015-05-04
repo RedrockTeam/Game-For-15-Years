@@ -19,6 +19,7 @@ game.prototype.begin = function(){
 }
 
 game.prototype.start = function(){
+	var that = this;
 	$.ajax({
 		type : post,
 		url : queURL,
