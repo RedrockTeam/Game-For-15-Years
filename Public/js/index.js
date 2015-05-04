@@ -52,11 +52,11 @@ game.prototype.que = function(){
 	var content = '';
 	var that = this;
 	content += '<div class="header">TIME：您已经花费<span class="green">'+this.time+'</span>秒</div>';
-	content += '<p class="que"><i>'+this.queNum+'</i>'+this.question[this.queNum-1].question+'</p>';
-	content += '<div class="ans ans_off" data="1">A：'+this.question[this.queNum-1].ans_A+'</div>';
-	content += '<div class="ans ans_off" data="2">B：'+this.question[this.queNum-1].ans_B+'</div>';
-	content += '<div class="ans ans_off" data="3">C：'+this.question[this.queNum-1].ans_C+'</div>';
-	content += '<div class="ans ans_off" data="4">D：'+this.question[this.queNum-1].ans_D+'</div>';
+	content += '<p class="que"><i>'+that.queNum+'</i>'+that.question[this.queNum-1].question+'</p>';
+	content += '<div class="ans ans_off" data="1">A：'+that.question[this.queNum-1].ans_A+'</div>';
+	content += '<div class="ans ans_off" data="2">B：'+that.question[this.queNum-1].ans_B+'</div>';
+	content += '<div class="ans ans_off" data="3">C：'+that.question[this.queNum-1].ans_C+'</div>';
+	content += '<div class="ans ans_off" data="4">D：'+that.question[this.queNum-1].ans_D+'</div>';
 	$('.bc').html(content);
 	$('.ans_off').on('touchstart',function(){
 		$(this).removeClass('ans_off');
@@ -208,11 +208,11 @@ game.prototype.alert = function(data,kouling){
 	var content = '';
 	content += '<div class="over"></div>';
 	if(data == 'nomore'){
-		content += '<div class="alert"><p>您本轮的答题机会已经用完， 请<span class="red">下一轮</span>再来吧。首次分享可再获得一次答题机会哟~</p><div class="button"></div></div>';
+		content += '<div class="alert"><p>您本轮的答题机会已经用完， 请<span class="red">下一轮</span>再来吧。首次分享可再获得一次答题机会哟~</p><div class="button confirm"></div></div>';
 	}else if(data == 'kouling'){
 		content +='<div class="alert"><p style="text-align:center">口令为<span class="red">'+kouling+'</span><br/>线下会有更多奖品等着您</p><div class="button confirm"></div><div class="button more"></div></div>';
 	}else if(data == 'share'){
-		content += '<div class="alert"><p style="text-align:center;">晒晒成绩，分享活动吧~<br/>每轮第一次分享游戏活动能获得1次重新答题的机会哦</p><div class="button"></div></div>';
+		content += '<div class="alert"><p style="text-align:center;">晒晒成绩，分享活动吧~<br/>每轮第一次分享游戏活动能获得1次重新答题的机会哦</p><div class="button confirm"></div></div>';
 	}
 
 	$('body').append(content);
