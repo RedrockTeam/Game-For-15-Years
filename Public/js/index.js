@@ -27,7 +27,6 @@ game.prototype.start = function(){
 		data : 'type=getContent&key=86b4359bdfdefb5b21d6260476087062',
 		success : function(data){
 			that.question = data.data;
-			that.que();
 		},
 		error : function(){
 			alert('连接服务器失败！');
@@ -63,7 +62,7 @@ game.prototype.que = function(){
 		$(this).removeClass('ans_off');
 		$(this).addClass('ans_on');
 	});
-	$('.ans').on('touchend',function(){
+	$('.ans').on('click',function(){
 		that.result.push($(this).attr('data'));
 		if(that.queNum == 5){
 			that.end();
@@ -116,45 +115,45 @@ game.prototype.draw = function(page,data){
 		//首页
 		var that = this;
 		var content = "";
-		content += '<img class="imgHead" src="img/logo.png"><div class="outer">';
+		content += '<img class="imgHead" src="Public/img/logo.png"><div class="outer">';
 		content += '<div class="button start"></div>';
 		content += '<div class="button prize"></div>';
 		content += '<div class="button help"></div>';
 		content += '<div class="button rank"></div></div>';
 		content += '<span class="hongyan" style="display:block;position: absolute;bottom: 0px;width: 100%;font-weight: lighter;text-align: center;color: #fff;font-size: 0.8em;">@红岩网校工作站</span>';
 		$('.bc').html(content);
-		$('.bc').css({'background-image':'url(img/indexbc.png)'});
-		$('.start').on('touchend',function(){
+		$('.bc').css({'background-image':'url(Public/img/indexbc.png)'});
+		$('.start').on('click',function(){
 			that.start();
 		});
-		$('.prize').on('touchend',function(){
+		$('.prize').on('click',function(){
 			that.prize();
 		});
-		$('.help').on('touchend',function(){
+		$('.help').on('click',function(){
 			that.draw("help");
 		});
-		$('.rank').on('touchend',function(){
+		$('.rank').on('click',function(){
 			that.rank();
 		});
 	}else if(page == "help"){
 		var content = "";
 		var that = this;
-		content += '<div class="header"><img src="img/help_title.png"></div>';
+		content += '<div class="header"><img src="Public/img/help_title.png"></div>';
 		content += '<div class="content"><h2>游戏规则</h2><p>1.每轮用户可以有一次答题机会，共计五道题，每轮第一次进行分享则增加一次答题机会； <br/>2.排行榜将在每轮结束时停止更新，排名前5名的用户可获得现金红包，每位参与的用户均可参加5月9日晚上的线下晚会的实物抽奖，根据参与的轮数不同抽中奖品也不同；<br/>3.红包口令将在每轮答题结束后，在我的奖品中查看，实物奖品将于5月9日的线下晚会中抽出中奖者；<br/>4.本活动的最终解释权归红岩网校工作站所有。</p><h2>奖品详情</h2>';
 		content += '<table><tbody><tr><td>参与4到5天：</td>	<td>耳机、小米手环</td><td>共7名</td></tr><tr><td>参与3天：</td><td>u盘、键鼠套装</td><td>共10名</td></tr><tr><td>参与1天：</td><td>精美笔记本</td><td>共10名</td></tr></tbody></table></div>';
 		content += '<div class="outer"><div class="button start"></div><div class="button return"></div></div>';
 		$('.bc').html(content);
-		$('.bc').css({'background-image':'url(img/back.png)'});
-		$('.start').on('touchend',function(){
+		$('.bc').css({'background-image':'url(Public/img/back.png)'});
+		$('.start').on('click',function(){
 			that.start();
 		});
-		$('.return').on('touchend',function(){
+		$('.return').on('click',function(){
 			that.begin();
 		});
 	}else if(page == "prize"){
 		var content = "";
 		var that = this;
-		content += '<div class="header"><img src="img/prize_title.png"></div>';
+		content += '<div class="header"><img src="Public/img/prize_title.png"></div>';
 		content += '<table class="prize_table"><tbody><tr><th>序号</th><th>奖品</th><th>红包口令</th><th>发放时间</th></tr>';
 		$.each(data,function(index,element){
 			content += '<tr><td>'+(index+1)+'</td><td>'+element.pri+'</td><td><span data="'+element.kl+'" class="kouling">口令</span></td><td>'+element.date+'</td></tr>';
@@ -163,18 +162,18 @@ game.prototype.draw = function(page,data){
 		content += '<p class="warning">红包请在发放后24小时内领取，<br/>过期失效后视作无效</p><p class="prize_p">5月9日晚上八点我们在春华秋实广场（二教与老图之间）将举行线下晚会，届时参与游戏的用户可免费参与实物抽奖。</p>';
 		content += '<div class="outer"><div class="button return"></div><div class="button more"></div></div>';
 		$('.bc').html(content);
-		$('.bc').css({'background-image':'url(img/back.png)'});
-		$('.return').on('touchend',function(){
+		$('.bc').css({'background-image':'url(Public/img/back.png)'});
+		$('.return').on('click',function(){
 			that.begin();
 		});
-		$('.kouling').on('touchend',function(){
+		$('.kouling').on('click',function(){
 			var data = $(this).attr('data');
 			that.alert('kouling',data);
 		});
 	}else if(page == "rank"){
 		var content = "";
 		var that = this;
-		content += '<div class="header"><img src="img/rank_title.png"></div>';
+		content += '<div class="header"><img src="Public/img/rank_title.png"></div>';
 		content += '<table class="rank_table"><tbody><tr><th>排名</th><th>昵称</th></tr>';
 		$.each(data,function(index,element){
 			content += '<tr><td>'+(index+1)+'</td><td>'+element.name;
@@ -183,11 +182,11 @@ game.prototype.draw = function(page,data){
 		content += '<h2 class="rank_h2">说明</h2><p class="rank_p">1.排行榜是实时更新的，并在每天早上九点题目更新时重置排行榜；<br/>2.每日排行前五名将各得到现金红包一个。</p>';
 		content += '<div class="outer"><div class="button return"></div><div class="button prize"></div></div>';
 		$('.bc').html(content);
-		$('.bc').css({'background-image':'url(img/back.png)'});
-		$('.return').on('touchend',function(){
+		$('.bc').css({'background-image':'url(Public/img/back.png)'});
+		$('.return').on('click',function(){
 			that.begin();
 		});
-		$('.prize').on('touchend',function(){
+		$('.prize').on('click',function(){
 			that.prize();
 		});
 	}else if(page == "end"){
@@ -196,10 +195,10 @@ game.prototype.draw = function(page,data){
 		content += '<div class="end"><h1>游戏结束</h1><h2>用 时：<span>'+data.time+'</span></h2><h2>得 分：<span>'+data.score+'</span></h2><h2>当前排行：<span>'+data.rank+'</span></h2></div>';
 		content += '<div class="outer"><div class="button rank"></div><div class="button share"></div></div>';
 		$('.bc').html(content);
-		$('.rank').on('touchend',function(){
+		$('.rank').on('click',function(){
 			that.rank();
 		});
-		$('.share').on('touchend',function(){
+		$('.share').on('click',function(){
 			that.alert('share');
 		});
 	}
@@ -217,7 +216,7 @@ game.prototype.alert = function(data,kouling){
 	}
 
 	$('body').append(content);
-	$('.button').on('touchend',function(){
+	$('.button').on('click',function(){
 		$('.over').remove();
 		$('.alert').remove();
 	});
