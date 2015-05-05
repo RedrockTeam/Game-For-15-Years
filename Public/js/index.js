@@ -172,7 +172,7 @@ game.prototype.draw = function(page,data){
 		var content = "";
 		var that = this;
 		content += '<div class="header"><img src="Public/img/help_title.png"></div>';
-		content += '<div class="content"><h2>游戏规则</h2><p>1.每轮用户可以有一次答题机会，共计五道题，每轮第一次进行分享则增加一次答题机会； <br/>2.排行榜将在每轮结束时停止更新，排名前5名的用户可获得现金红包，每位参与的用户均可参加5月9日晚上的线下晚会的实物抽奖，根据参与的轮数不同抽中奖品也不同；<br/>3.红包口令将在每轮答题结束后，在我的奖品中查看，实物奖品将于5月9日的线下晚会中抽出中奖者；<br/>4.本活动的最终解释权归红岩网校工作站所有。</p><h2>奖品详情</h2>';
+		content += '<div class="content"><h2>游戏规则</h2><p>1.每轮用户可以有一次答题机会，共计五道题，每轮第一次答题后进行分享则增加一次答题机会； <br/>2.排行榜将在每轮结束时停止更新，排名前5名的用户可获得现金红包，每位参与的用户均可参加5月9日晚上的线下晚会的实物抽奖，根据参与的轮数不同抽中奖品也不同；<br/>3.红包口令将在每轮答题结束后，在我的奖品中查看，实物奖品将于5月9日的线下晚会中抽出中奖者；<br/>4.本活动的最终解释权归红岩网校工作站所有。</p><h2>奖品详情</h2>';
 		content += '<table><tbody><tr><td>参与4到5天：</td>	<td>耳机、小米手环</td><td>共7名</td></tr><tr><td>参与3天：</td><td>u盘、键鼠套装</td><td>共10名</td></tr><tr><td>参与1天：</td><td>精美笔记本</td><td>共10名</td></tr></tbody></table></div>';
 		content += '<div class="outer"><div class="button start"></div><div class="button return"></div></div>';
 		$('.bc').html(content);
