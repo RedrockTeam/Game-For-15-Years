@@ -8,7 +8,7 @@ class IndexController extends Controller {
 	private $wx_url = 'http://hongyan.cqupt.edu.cn/MagicLoop/index.php?s=/addon/Api/Api/';
 	
 	public function index(){
-		//
+		$this->checkTime();
 		//$openId = I('get.id');
 		$CODE = I('get.code');
 
@@ -47,6 +47,7 @@ class IndexController extends Controller {
 	}
 	
 	public function game(){
+		$this->checkTime();
 		$openId = I('get.openId');
 		$time=time();
 		$str = 'abcdefghijklnmopqrstwvuxyz1234567890ABCDEFGHIJKLNMOPQRSTWVUXYZ';
@@ -158,15 +159,20 @@ class IndexController extends Controller {
 	
 	public function checkTime(){
 		$now = date("H");
-		if($now>=22||$now<=7) {
+		/*if($now>=22||$now<=7) {
 			$result = array( 'nowTime' => $now . "时", 'status' => 707, 'info' => '本游戏只在8点-22点开放' );
 			$this->ajaxReturn($result);
+		}*/
+		$user_agent = $_SERVER['HTTP_USER_AGENT'];
+		if (strpos($user_agent, 'MicroMessenger') === false) {
+			// 非微信浏览器禁止浏览
+			$this->ajaxReturn(array('请使用微信打开'));
 		}
 	}
 
 	
 	public function	questionApi(){
-		
+		$this->checkTime();
 		$data = array(
 					'data'=>"您访问的页面不存在",
 					'status' => 404
@@ -195,7 +201,7 @@ class IndexController extends Controller {
 	}
 	
 	public function	answerApi(){
-		
+		$this->checkTime();
 		$data = array(
 					'data'=>"您访问的页面不存在",
 					'status' => 404
@@ -448,6 +454,16 @@ class IndexController extends Controller {
 			
 		}
 		$this->ajaxReturn($data);
+	}
+
+	public function  add(){
+		$now = date('d')-1;
+		$select = D('reply')->join('`wx_user` on wx_user.wx_id = reply.wx_id')->where("reply.whichDay = $now")->order('reply.grade desc')->limit(5)->select();
+
+		$this->assign('now',$now);
+		$this->assign('rank',$select);
+
+		$this->display('add');
 	}
 }
 
