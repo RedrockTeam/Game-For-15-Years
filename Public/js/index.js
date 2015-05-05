@@ -257,24 +257,22 @@ game.prototype.alert = function(data,kouling){
 }
 
 game.prototype.prize = function(){
-	if(this.prizes){
-		this.draw("prize",this.prizes);
-	}else{
 		var array = [];
+		var that = this;
 		$.ajax({
 			type : 'post',
 			url : prizeURL,
 			data : 'openId='+openid,
 			success : function(data){
 				array = data.data;
+				that.draw("prize",array);
 			},
 			error : function(){
 				alert('连接服务器失败！');
 			}
 		});
 		//var data = [{pri:'现金红包10元',date:'2012-2-2',kl:'kouling'},{pri:'现金红包10元',time:'2012-2-3',kouling:'kouling'}];
-		this.draw("prize",array);
-	}
+		
 	
 }
 
