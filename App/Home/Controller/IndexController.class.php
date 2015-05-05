@@ -457,13 +457,35 @@ class IndexController extends Controller {
 	}
 
 	public function  add(){
+		header("Content-type:text/html;charset=utf-8");
 		$now = date('d')-1;
 		$select = D('reply')->join('`wx_user` on wx_user.wx_id = reply.wx_id')->where("reply.whichDay = $now")->order('reply.grade desc')->limit(5)->select();
 
 		$this->assign('now',$now);
 		$this->assign('rank',$select);
-
+		$this->assign('giftUrl',U('Home/Index/addGift'));
 		$this->display('add');
+	}
+
+	public function addGift()
+	{
+
+		header("Content-type:text/html;charset=utf-8");
+		if(I('post.change') != date('Ymd').'prize') exit(	'非法');
+		$post  = I('post.');
+		$table = D('gift');
+		for ($i = 1; $i <= 5; $i++) {
+			$array['wx_id'] = $post['id' . $i];
+			$array['kl']    = $post['key' . $i];
+			$array['date']  = date('Y-m-d');
+			$array['pri']   = $post['pri' . $i];
+
+			$table->add($array);
+			$table->save($array);
+		}
+
+		print_r($post);
+		echo '添加成功';
 	}
 }
 

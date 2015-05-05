@@ -5,8 +5,19 @@
     <title></title>
 </head>
 <body>
+    5月{$now}日前五名单:<br/>
+    <form action="{$giftUrl}" method='post'>
     <volist name='rank' id='vo' >
-    <span>{$vo.}</span>
+     <span>ID:{$vo.wx_id}<br/> Name:{$vo.name} <br/>grade: {$vo.grade} </span><br/>
+        <input type='text' name='id{$i}' value='{$vo.wx_id}' style='display:none;'/>
+        红包码:<input type='text' name='key{$i}' value='{$i}' />
+        红包介绍:<input type='text' name='pri{$i}' value=' 红包{$i}元' />
+
+        <br/><br/>
     </volist>
+        <br/><br/>
+        修改码:<input type='text' name='change' value='' />
+        <button tpye='submit'>提交</button>
+    </form>
 </body>
 </html>
