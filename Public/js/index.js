@@ -192,7 +192,7 @@ game.prototype.draw = function(page,data){
 			content += '<tr><td>'+(index+1)+'</td><td>'+element.pri+'</td><td><span data="'+element.kl+'" class="kouling">口令</span></td><td>'+element.date+'</td></tr>';
 		});
 		content += '</tbody></table>';
-		content += '<p class="warning">红包请在发放后24小时内领取，<br/>过期失效后视作无效</p><p class="prize_p">5月9日晚上七点我们在春华秋实广场（二教与老图之间）将举行线下晚会，届时参与游戏的用户可免费参与实物抽奖。</p>';
+		content += '<p class="warning">红包请在发放后12小时内领取，<br/>过期失效后视作无效</p><p class="prize_p">5月9日晚上七点我们在春华秋实广场（二教与老图之间）将举行线下晚会，届时参与游戏的用户可免费参与实物抽奖。</p>';
 		content += '<div class="outer"><div class="button return"></div><div class="button more"></div></div>';
 		$('.bc').html(content);
 		$('.bc').css({'background-image':'url(Public/img/back.png)'});
@@ -212,7 +212,7 @@ game.prototype.draw = function(page,data){
 			content += '<tr><td>'+(index+1)+'</td><td>'+element.name;
 		});
 		content += '</tbody></table>';
-		content += '<h2 class="rank_h2">说明</h2><p class="rank_p">1.排行榜是实时更新的，并在每天题目更新时重置排行榜；<br/>2.每日排行前五名将各得到现金红包一个。</p>';
+		content += '<h2 class="rank_h2">说明</h2><p class="rank_p">1.排行榜是实时更新的，并在每天24点题目更新时重置排行榜；<br/>2.每日排行前五名将各得到现金红包一个。</p>';
 		content += '<div class="outer"><div class="button return"></div><div class="button prize"></div></div>';
 		$('.bc').html(content);
 		$('.bc').css({'background-image':'url(Public/img/back.png)'});
