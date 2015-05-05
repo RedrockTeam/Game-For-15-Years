@@ -103,6 +103,33 @@ game.prototype.end = function(){
 		success : function(data){
 			rank = data.rank;
 			var data = {time:that.time,score:score,rank:rank};
+			wx.ready(function(){
+				wx.onMenuShareTimeline({
+				    title: '我在网校十五周年之网校知多少中得了'+score+'分，排名第'+rank+'。现在参加更有好礼相送哦~', // 分享标题
+				    link: 'https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx81a4a4b77ec98ff4&redirect_uri=http%3A%2F%2Fhongyan.cqupt.edu.cn%2F%2FGame-For-15-Years&response_type=code&scope=snsapi_userinfo&state=STATE#wechat_redirect', // 分享链接
+				    imgUrl: 'http://hongyan.cqupt.edu.cn/Game-For-15-Years/Public/img/logo.png', // 分享图标
+				    success: function () {
+						alert('分享成功!');
+				    	$.ajax({
+								type : 'post',
+								url : shareURL,
+								data : 'type=getGrade&key=86b4359bdfdefb5b21d6260476087062&openId='+openid+'',
+								success : function(data){
+									if(data.status == 200){
+										rest++;
+									}
+								},
+								error : function(){
+									alert('连接服务器失败！');
+								}
+							});
+				        // 用户确认分享后执行的回调函数
+				    },
+				    cancel: function () { 
+				        // 用户取消分享后执行的回调函数
+				    }
+				})
+			});
 			that.draw('end',data);
 		},
 		error : function(){
@@ -145,7 +172,7 @@ game.prototype.draw = function(page,data){
 		var content = "";
 		var that = this;
 		content += '<div class="header"><img src="Public/img/help_title.png"></div>';
-		content += '<div class="content"><h2>游戏规则</h2><p>1.每轮用户可以有一次答题机会，共计五道题，每轮第一次进行分享则增加一次答题机会； <br/>2.排行榜将在每轮结束时停止更新，排名前5名的用户可获得现金红包，每位参与的用户均可参加5月9日晚上的线下晚会的实物抽奖，根据参与的轮数不同抽中奖品也不同；<br/>3.红包口令将在每轮答题结束后，在我的奖品中查看，实物奖品将于5月9日的线下晚会中抽出中奖者；<br/>4.本活动的最终解释权归红岩网校工作站所有。</p><h2>奖品详情</h2>';
+		content += '<div class="content"><h2>游戏规则</h2><p>1.每轮用户可以有一次答题机会，共计五道题，每轮第一次答题后进行分享则增加一次答题机会； <br/>2.排行榜将在每轮结束时停止更新，排名前5名的用户可获得现金红包，每位参与的用户均可参加5月9日晚上的线下晚会的实物抽奖，根据参与的轮数不同抽中奖品也不同；<br/>3.红包口令将在每轮答题结束后，在我的奖品中查看，实物奖品将于5月9日的线下晚会中抽出中奖者；<br/>4.本活动的最终解释权归红岩网校工作站所有。</p><h2>奖品详情</h2>';
 		content += '<table><tbody><tr><td>参与4到5天：</td>	<td>耳机、小米手环</td><td>共7名</td></tr><tr><td>参与3天：</td><td>u盘、键鼠套装</td><td>共10名</td></tr><tr><td>参与1天：</td><td>精美笔记本</td><td>共10名</td></tr></tbody></table></div>';
 		content += '<div class="outer"><div class="button start"></div><div class="button return"></div></div>';
 		$('.bc').html(content);
@@ -165,7 +192,7 @@ game.prototype.draw = function(page,data){
 			content += '<tr><td>'+(index+1)+'</td><td>'+element.pri+'</td><td><span data="'+element.kl+'" class="kouling">口令</span></td><td>'+element.date+'</td></tr>';
 		});
 		content += '</tbody></table>';
-		content += '<p class="warning">红包请在发放后24小时内领取，<br/>过期失效后视作无效</p><p class="prize_p">5月9日晚上八点我们在春华秋实广场（二教与老图之间）将举行线下晚会，届时参与游戏的用户可免费参与实物抽奖。</p>';
+		content += '<p class="warning">红包请在发放后12小时内领取，<br/>过期失效后视作无效</p><p class="prize_p">5月9日晚上七点我们在春华秋实广场（二教与老图之间）将举行线下晚会，届时参与游戏的用户可免费参与实物抽奖。</p>';
 		content += '<div class="outer"><div class="button return"></div><div class="button more"></div></div>';
 		$('.bc').html(content);
 		$('.bc').css({'background-image':'url(Public/img/back.png)'});
@@ -185,7 +212,7 @@ game.prototype.draw = function(page,data){
 			content += '<tr><td>'+(index+1)+'</td><td>'+element.name;
 		});
 		content += '</tbody></table>';
-		content += '<h2 class="rank_h2">说明</h2><p class="rank_p">1.排行榜是实时更新的，并在每天早上九点题目更新时重置排行榜；<br/>2.每日排行前五名将各得到现金红包一个。</p>';
+		content += '<h2 class="rank_h2">说明</h2><p class="rank_p">1.排行榜是实时更新的，并在每天24点题目更新时重置排行榜；<br/>2.每日排行前五名将各得到现金红包一个。</p>';
 		content += '<div class="outer"><div class="button return"></div><div class="button prize"></div></div>';
 		$('.bc').html(content);
 		$('.bc').css({'background-image':'url(Public/img/back.png)'});
@@ -230,24 +257,22 @@ game.prototype.alert = function(data,kouling){
 }
 
 game.prototype.prize = function(){
-	if(this.prizes){
-		this.draw("prize",this.prizes);
-	}else{
 		var array = [];
+		var that = this;
 		$.ajax({
 			type : 'post',
 			url : prizeURL,
 			data : 'openId='+openid,
 			success : function(data){
-				array = data;
+				array = data.data;
+				that.draw("prize",array);
 			},
 			error : function(){
 				alert('连接服务器失败！');
 			}
 		});
 		//var data = [{pri:'现金红包10元',date:'2012-2-2',kl:'kouling'},{pri:'现金红包10元',time:'2012-2-3',kouling:'kouling'}];
-		this.draw("prize",array);
-	}
+		
 	
 }
 
