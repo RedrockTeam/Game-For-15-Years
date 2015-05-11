@@ -69,7 +69,7 @@ game.prototype.que = function(){
 	});
 	$('.ans').on('click',function(){
 		that.result.push($(this).attr('data'));
-		if(that.queNum == 5){
+		if(that.queNum == 3){
 			that.end();
 		}else{
 			that.queNum++;
